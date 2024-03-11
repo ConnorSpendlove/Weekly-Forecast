@@ -8,16 +8,16 @@
     <title>Weekly Forecast</title>
 </head>
 <body class = "has-background-grey">
-    <main class="has-background-blue">
         <section class="">
             <div class="">
-                <header class="has-text-centered has-background-link">
+                <header class="has-text-centered has-background-link py-4">
                     <h1 class="title is-1 has-text-white">Weather Forecast</h1>  
                 </header>
             </div>
         </section>
-        <div class="columns is-gapless">
-            <div class="column is-one-third is-offset-one-quarter">
+    <main class="has-background-blue">
+        <div class="columns px-4 py-6">
+            <div class="column is-one-third is-offset-one-half">
                 <div class="card">
                     <div class="card-content">
                         <form id="location-entry-form">
@@ -31,12 +31,22 @@
                                 <div class="control">
                                     <button type="submit" class="button is-primary">Submit</button>
                                 </div>
+                                <div class = "previous-locations">
+                                </div>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
+            <div class="column is-one-half is-offset-one-quarter ml-3 mr-4">
+                <div class="card">
+                    <div class="card-content">
+                        <!-- Content for the second card on the right half of the screen -->
+                    </div>
+                </div>
+            </div>
         </div>
+        
     </main>
     <script src = "./assets/script.js"></script>
 </body>
