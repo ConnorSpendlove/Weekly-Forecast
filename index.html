@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel = "stylesheet" href = "./assets/style.css"/>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Forecast</title>
+</head>
+<body class = "has-background-grey">
+    <main class="has-background-blue">
+        <section class="">
+            <div class="">
+                <header class="has-text-centered has-background-link">
+                    <h1 class="title is-1 has-text-white">Weather Forecast</h1>  
+                </header>
+            </div>
+        </section>
+        <div class="columns is-gapless">
+            <div class="column is-one-third is-offset-one-quarter">
+                <div class="card">
+                    <div class="card-content">
+                        <form id="location-entry-form">
+                            <div class="field">
+                                <label class="label" for="location">Location:</label>
+                                <div class="control">
+                                    <input class="input is-small" type="text" id="location" name="location" placeholder="Enter a location" required>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                    <button type="submit" class="button is-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src = "./assets/script.js"></script>
+</body>
+</html>

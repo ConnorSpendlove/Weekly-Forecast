@@ -1,0 +1,19 @@
+html {
+    height:100%
+}
+
+body {
+    background-image: url(./background.svg);
+    background-repeat: no-repeat;
+    background-size: cover; /*makes svg cover the whole body*/
+    background-blend-mode:overlay;
+    min-height: 100vh;
+    position: relative;
+    width: 100vw;
+}
+
+/* header {
+    background-image: url(./background.svg);
+    background-blend-mode:overlay;
+} */
+
