@@ -33,22 +33,53 @@ document.addEventListener('DOMContentLoaded', function () {
         forecastCard.appendChild(currentWeather);
     }
 
+    
     function displayForecast(data) {
-        const forecast = document.createElement('div');
+        const today = new Date();
+        const nextFiveDays = [];
+        const displayedDates = []; // To keep track of dates for which cards have been displayed
+    
+        for (let i = 0; i < 5; i++) {
+            const nextDay = new Date(today);
+            nextDay.setDate(today.getDate() + i);
+            nextFiveDays.push(nextDay.toLocaleDateString());
+        }
+    
+        forecastCard.innerHTML = ''; // Clear previous data
+    
         data.list.forEach(item => {
-            const forecastItem = document.createElement('div');
-            forecastItem.innerHTML = `
-                <p>Date: ${new Date(item.dt * 1000).toLocaleDateString()}</p>
-                <img src="http://openweathermap.org/img/wn/${item.weather[0].icon}.png">
-                <p>Temperature: ${item.main.temp}°C</p>
-                <p>Humidity: ${item.main.humidity}%</p>
-                <p>Wind Speed: ${item.wind.speed} m/s</p>
-            `;
-            forecast.appendChild(forecastItem);
+            const itemDate = new Date(item.dt * 1000).toLocaleDateString();
+            if (nextFiveDays.includes(itemDate) && !displayedDates.includes(itemDate)) {
+                const forecastItem = document.createElement('div');
+                forecastItem.className = 'forecast-item';
+    
+                const date = document.createElement('p');
+                date.textContent = `Date: ${itemDate}`;
+    
+                const weatherIcon = document.createElement('img');
+                weatherIcon.src = `http://openweathermap.org/img/wn/${item.weather[0].icon}.png`;
+    
+                const temperature = document.createElement('p');
+                temperature.textContent = `Temperature: ${item.main.temp}°F`;
+    
+                const humidity = document.createElement('p');
+                humidity.textContent = `Humidity: ${item.main.humidity}%`;
+    
+                const windSpeed = document.createElement('p');
+                windSpeed.textContent = `Wind Speed: ${item.wind.speed} m/s`;
+    
+                forecastItem.appendChild(date);
+                forecastItem.appendChild(weatherIcon);
+                forecastItem.appendChild(temperature);
+                forecastItem.appendChild(humidity);
+                forecastItem.appendChild(windSpeed);
+    
+                forecastCard.appendChild(forecastItem);
+    
+                displayedDates.push(itemDate); // Mark this date as displayed
+            }
         });
-        forecastCard.appendChild(forecast);
     }
-
     function updateSearchHistory(city) {
         if (!searchHistory.includes(city)) {
             searchHistory.push(city);
