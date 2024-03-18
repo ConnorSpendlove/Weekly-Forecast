@@ -6,7 +6,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const header = document.getElementById('header')
     let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
 
+    // Function to fetch weather data for a city
     function fetchWeatherData(city) {
+         // Fetch current weather data
         fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`)
             .then(response => response.json())
             .then(data => {
@@ -19,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .catch(error => console.error('Error fetching weather data:', error));
     }
-
+    // Function to display current weather
     function displayCurrentWeather(data) {
         if (!data || !data.name || !data.weather || !data.weather[0] || !data.main || !data.wind) {
             console.error("Invalid data format for current weather.");
@@ -117,7 +119,8 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
-
+    
+      // Function to update search history
     function updateSearchHistory(city) {
         if (!searchHistory.includes(city)) {
             searchHistory.push(city);
