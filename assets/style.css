@@ -17,26 +17,49 @@ body {
     background-blend-mode:overlay;
 } */
 
+
 #forecast-card {
     display: flex;
     flex-wrap: nowrap;
+    justify-content: space-evenly;
+    /* background-color: rgb(0, 255, 255); */
     overflow-x: auto;
     -webkit-overflow-scrolling: touch; /* Enables smooth scrolling on iOS devices */
     scrollbar-width: none; /* Hide scrollbar for non-Firefox browsers */
     -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
 }
 
+.forecast-item {
+    background-color: #352a56; /* Dark color */
+    color: #fff; /* White text */
+    padding: 10px;
+    margin: 3px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow */
+}
 #forecast-card::-webkit-scrollbar {
     display: none
 
 }
 
-.day-card {
+ /* .day-card {
     flex: 0 0 auto;
-    width: 200px; /* Adjust card width as needed */
+    width: 200px;
     margin-right: 10px;
-}
+    background-color: blue;
+} */
 
 .is-largest {
     width: 250px; /* Larger width for current day card */
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.previous-locations div:hover {
+    background-color: #f0f0f0; /* Change color on hover */
+    cursor: pointer; /* Change cursor to pointer on hover */
 }
