@@ -60,7 +60,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 weatherIcon.src = `http://openweathermap.org/img/wn/${item.weather[0].icon}.png`;
     
                 const temperature = document.createElement('p');
-                temperature.textContent = `Temperature: ${item.main.temp}°F`;
+                // Convert temperature to Fahrenheit
+                const tempFahrenheit = (item.main.temp * 9/5) + 32;
+                temperature.textContent = `Temperature: ${tempFahrenheit.toFixed(2)}°F`;
     
                 const humidity = document.createElement('p');
                 humidity.textContent = `Humidity: ${item.main.humidity}%`;
