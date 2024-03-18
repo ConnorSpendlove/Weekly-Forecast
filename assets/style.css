@@ -17,3 +17,26 @@ body {
     background-blend-mode:overlay;
 } */
 
+#forecast-card {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Enables smooth scrolling on iOS devices */
+    scrollbar-width: none; /* Hide scrollbar for non-Firefox browsers */
+    -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
+}
+
+#forecast-card::-webkit-scrollbar {
+    display: none
+
+}
+
+.day-card {
+    flex: 0 0 auto;
+    width: 200px; /* Adjust card width as needed */
+    margin-right: 10px;
+}
+
+.is-largest {
+    width: 250px; /* Larger width for current day card */
+}

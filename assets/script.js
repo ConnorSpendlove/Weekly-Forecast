@@ -1,45 +1,78 @@
-var API_KEY = "c06a396859e7202b5818f80aa317171f";
-    document.addEventListener('DOMContentLoaded', function () {
-        const locationEntryForm = document.getElementById('location-entry-form');
-        const previousLocations = document.getElementById('previous-locations');
-        const forecastCard = document.getElementById('forecast-card');
+document.addEventListener('DOMContentLoaded', function () {
+    const API_KEY = 'c06a396859e7202b5818f80aa317171f';
+    const locationEntryForm = document.getElementById('location-entry-form');
+    const previousLocations = document.getElementById('previous-locations');
+    const forecastCard = document.getElementById('forecast-card');
+    let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
 
-        locationEntryForm.addEventListener('submit', function (event) {
-            event.preventDefault();
+    function fetchWeatherData(city) {
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`)
+            .then(response => response.json())
+            .then(data => {
+                displayCurrentWeather(data);
+                return fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}&units=metric`);
+            })
+            .then(response => response.json())
+            .then(data => {
+                displayForecast(data);
+            })
+            .catch(error => console.error('Error fetching weather data:', error));
+    }
 
-            const locationInput = document.getElementById('location');
-            const locationValue = locationInput.value.trim();
+    function displayCurrentWeather(data) {
+        const currentWeather = document.createElement('div');
+        currentWeather.innerHTML = `
+            <h2>${data.name}</h2>
+            <p>${new Date().toLocaleDateString()}</p>
+            <img src="http://openweathermap.org/img/wn/${data.weather[0].icon}.png">
+            <p>Temperature: ${data.main.temp}°C</p>
+            <p>Humidity: ${data.main.humidity}%</p>
+            <p>Wind Speed: ${data.wind.speed} m/s</p>
+        `;
+        forecastCard.innerHTML = ''; // Clear previous data
+        forecastCard.appendChild(currentWeather);
+    }
 
-            if (locationValue !== '') {
-                // Make API call to get forecast
-                fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${locationValue}&appid=${API_KEY}&units=imperial`)
-                    .then(response => response.json())
-                    .then(data => {
-                        // Clear previous forecast
-                        forecastCard.innerHTML = '';
-
-                        // Display 5-day forecast
-                        for (let i = 0; i < data.list.length; i += 8) { // Forecast for every 24 hours (8 times in 5 days)
-                            const forecastItem = document.createElement('div');
-                            forecastItem.textContent = `Date: ${data.list[i].dt_txt}, Temperature: ${data.list[i].main.temp}°F`;
-                            forecastCard.appendChild(forecastItem);
-                        }
-                    })
-                    .catch(error => console.error('Error fetching forecast:', error));
-
-                // Save to local storage
-                localStorage.setItem('previousLocation', locationValue);
-
-                // Clear input
-                locationInput.value = '';
-            }
+    function displayForecast(data) {
+        const forecast = document.createElement('div');
+        data.list.forEach(item => {
+            const forecastItem = document.createElement('div');
+            forecastItem.innerHTML = `
+                <p>Date: ${new Date(item.dt * 1000).toLocaleDateString()}</p>
+                <img src="http://openweathermap.org/img/wn/${item.weather[0].icon}.png">
+                <p>Temperature: ${item.main.temp}°C</p>
+                <p>Humidity: ${item.main.humidity}%</p>
+                <p>Wind Speed: ${item.wind.speed} m/s</p>
+            `;
+            forecast.appendChild(forecastItem);
         });
+        forecastCard.appendChild(forecast);
+    }
 
-        // Retrieve from local storage
-        const savedLocation = localStorage.getItem('previousLocation');
-        if (savedLocation) {
-            const locationItem = document.createElement('div');
-            locationItem.textContent = savedLocation;
-            previousLocations.appendChild(locationItem);
+    function updateSearchHistory(city) {
+        if (!searchHistory.includes(city)) {
+            searchHistory.push(city);
+            localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+        }
+        previousLocations.innerHTML = ''; // Clear previous data
+        searchHistory.forEach(city => {
+            const historyItem = document.createElement('div');
+            historyItem.textContent = city;
+            historyItem.addEventListener('click', () => fetchWeatherData(city));
+            previousLocations.appendChild(historyItem);
+        });
+    }
+
+    locationEntryForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const cityInput = document.getElementById('location');
+        const city = cityInput.value.trim();
+        if (city !== '') {
+            fetchWeatherData(city);
+            updateSearchHistory(city);
+            cityInput.value = '';
         }
     });
+
+    updateSearchHistory(''); // Initialize search history
+});
