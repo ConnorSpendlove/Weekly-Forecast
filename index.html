@@ -1,54 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <link rel = "stylesheet" href = "./assets/style.css"/>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weekly Forecast</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="./assets/style.css">
 </head>
-<body class = "has-background-grey">
-        <section class="">
-            <div class="">
-                <header class="has-text-centered has-background-link py-4">
-                    <h1 class="title is-1 has-text-white">Weather Forecast</h1>  
-                </header>
-            </div>
-        </section>
-    <main class="has-background-blue">
-        <div class="columns px-4 py-6">
-            <div class="column is-one-third is-offset-one-half">
-                <div class="card">
-                    <div class="card-content">
-                        <form id="location-entry-form">
-                            <div class="field">
-                                <label class="label" for="location">Location:</label>
-                                <div class="control">
-                                    <input class="input is-small" type="text" id="location" name="location" placeholder="Enter a location" required>
-                                </div>
+<body class="has-background-grey">
+<section>
+    <div>
+        <header class="has-text-centered has-background-link py-4">
+            <h1 class="title is-1 has-text-white">Weather Forecast</h1>  
+        </header>
+    </div>
+</section>
+<main class="has-background-blue">
+    <div class="columns px-4 py-6">
+        <div class="column is-one-third is-offset-one-half">
+            <div class="card">
+                <div class="card-content">
+                    <form id="location-entry-form">
+                        <div class="field">
+                            <label class="label" for="location">Location:</label>
+                            <div class="control">
+                                <input class="input is-small" type="text" id="location" name="location" placeholder="Enter a location" required>
                             </div>
-                            <div class="field">
-                                <div class="control">
-                                    <button type="submit" class="button is-primary" id = "submit-btn">Submit</button>
-                                </div>
-                                <div class="previous-locations" id="previous-locations">
-                                    <!-- Previous locations will be displayed here -->
-                                </div>
+                        </div>
+                        <div class="field">
+                            <div class="control">
+                                <button type="submit" class="button is-primary" id="submit-btn">Submit</button>
                             </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="column is-one-half is-offset-one-quarter ml-3 mr-4">
-                <div class="card">
-                    <div class="card-content">
-                        <!-- Content for the second card on the right half of the screen -->
+                        </div>
+                    </form>
+                    <div class="previous-locations" id="previous-locations">
+                        <!-- Previous locations will be displayed here -->
                     </div>
                 </div>
             </div>
         </div>
-        
-    </main>
+        <div class="column is-one-half is-offset-one-quarter ml-3 mr-4">
+            <div class="card">
+                <div class="card-content">
+                    <!-- Content for the second card on the right half of the screen -->
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
     <script src = "./assets/script.js"></script>
 </body>
 </html>
