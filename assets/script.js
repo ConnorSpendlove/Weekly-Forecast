@@ -2,6 +2,7 @@ var API_KEY = "c06a396859e7202b5818f80aa317171f";
     document.addEventListener('DOMContentLoaded', function () {
         const locationEntryForm = document.getElementById('location-entry-form');
         const previousLocations = document.getElementById('previous-locations');
+        const forecastCard = document.getElementById('forecast-card');
 
         locationEntryForm.addEventListener('submit', function (event) {
             event.preventDefault();
@@ -14,9 +15,15 @@ var API_KEY = "c06a396859e7202b5818f80aa317171f";
                 fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${locationValue}&appid=${API_KEY}&units=imperial`)
                     .then(response => response.json())
                     .then(data => {
-                        const forecastItem = document.createElement('div');
-                        forecastItem.textContent = `Forecast for ${locationValue}: ${data.list[0].main.temp}°F`;
-                        previousLocations.appendChild(forecastItem);
+                        // Clear previous forecast
+                        forecastCard.innerHTML = '';
+
+                        // Display 5-day forecast
+                        for (let i = 0; i < data.list.length; i += 8) { // Forecast for every 24 hours (8 times in 5 days)
+                            const forecastItem = document.createElement('div');
+                            forecastItem.textContent = `Date: ${data.list[i].dt_txt}, Temperature: ${data.list[i].main.temp}°F`;
+                            forecastCard.appendChild(forecastItem);
+                        }
                     })
                     .catch(error => console.error('Error fetching forecast:', error));
 
